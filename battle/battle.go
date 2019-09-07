@@ -65,6 +65,9 @@ func Battle(attacker *heroes.Unit, defender *heroes.Unit, showResults bool) {
         if showResults {
             printSequence(battlePair)
         }
+        if battlePair.Defender.CurrentHp == 0 {
+            break
+        }
     }
 
     if showResults {
