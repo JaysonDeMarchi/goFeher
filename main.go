@@ -54,6 +54,6 @@ func main() {
         Special: "",
     }
 
-    battle.Battle(anna, axeFighter, true);
-    battle.Battle(anna, blueManakete, true);
+    battle.Battle(&anna, &axeFighter, true);
+    battle.Battle(&anna, &blueManakete, true);
 }

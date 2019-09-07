@@ -4,7 +4,7 @@ import (
     "fmt"
 )
 
-func PrintStats(unit Unit) {
+func PrintStats(unit *Unit) {
     fmt.Printf("NAME: %s\n", unit.Name)
     fmt.Printf("\tWEAPON TYPE: %s %s\n", unit.WeaponColor, unit.WeaponType)
     fmt.Printf("\tHP: %d / %d\t\tWEAPON: %s\n", unit.CurrentHp, unit.BaseHp, unit.Weapon)

@@ -16,8 +16,8 @@ func printResults(battleSequence []Pair) {
 }
 
 func printSequence(battlePair Pair) {
-    attacker := battlePair.Attacker
-    defender := battlePair.Defender
+    attacker := *battlePair.Attacker
+    defender := *battlePair.Defender
     fmt.Printf(
         "%s (%d) -> %s (%d)\n",
         attacker.Name,

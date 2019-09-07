@@ -5,18 +5,26 @@ import (
 )
 
 type Pair struct {
-    Attacker, Defender heroes.Unit
+    Attacker, Defender *heroes.Unit
 }
 
-func attack(attacker heroes.Unit, defender heroes.Unit) int {
-    damage := calculateDamage(attacker, defender)
+func calculateRemainingHp(battlePair Pair) int {
+    defender := battlePair.Defender
+    damage := calculateDamage(battlePair)
     if defender.CurrentHp < damage {
         return 0
     }
     return defender.CurrentHp - damage
 }
 
-func buildBattleSequence(attacker heroes.Unit, defender heroes.Unit) []Pair {
+
+func attack(battlePair Pair) {
+    battlePair.Defender.SetCurrentHp(calculateRemainingHp(battlePair))
+}
+
+func buildBattleSequence(battlePair Pair) []Pair {
+    attacker := battlePair.Attacker
+    defender := battlePair.Defender
     battleSequence := []Pair {
         Pair{
             attacker,
@@ -41,15 +49,19 @@ func buildBattleSequence(attacker heroes.Unit, defender heroes.Unit) []Pair {
     return battleSequence
 }
 
-func Battle(attacker heroes.Unit, defender heroes.Unit, showResults bool) {
-    battleSequence := buildBattleSequence(attacker, defender)
+func Battle(attacker *heroes.Unit, defender *heroes.Unit, showResults bool) {
+    battlePair := Pair{
+        Attacker: attacker,
+        Defender: defender,
+    }
+    battleSequence := buildBattleSequence(battlePair)
 
     if showResults {
         printIntro()
     }
 
     for _, battlePair := range battleSequence {
-        battlePair.Defender.CurrentHp = attack(battlePair.Attacker, battlePair.Defender)
+        attack(battlePair)
         if showResults {
             printSequence(battlePair)
         }
@@ -60,6 +72,6 @@ func Battle(attacker heroes.Unit, defender heroes.Unit, showResults bool) {
     }
 }
 
-func calculateDamage(attacker heroes.Unit, defender heroes.Unit) int {
-    return attacker.Atk - (defender.Bulk(attacker))
+func calculateDamage(battlePair Pair) int {
+    return battlePair.Attacker.Atk - (battlePair.Defender.Bulk(battlePair.Attacker))
 }

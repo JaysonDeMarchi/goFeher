@@ -5,7 +5,11 @@ type Unit struct {
     Name, WeaponColor, WeaponType, MovementType, Weapon, Assist, Special string
 }
 
-func (unit *Unit) Bulk(attacker Unit) int {
+func (unit *Unit) SetCurrentHp(currentHp int) {
+    unit.CurrentHp = currentHp
+}
+
+func (unit *Unit) Bulk(attacker *Unit) int {
     magicalWeapons := map[string]bool {
         "tome": true,
         "dragonstone": true,
