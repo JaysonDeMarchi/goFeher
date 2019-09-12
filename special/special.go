@@ -7,13 +7,32 @@ type special struct {
 }
 
 func New(name string) Special {
+    specials := map[string]special {
+        "": special{
+            Name: "",
+            BaseCooldown: 0,
+            CurrentCooldown: 0,
+            EffectValue: 0,
+            Trigger: "",
+            Type: "",
+
+        },
+        "night sky": special{
+            Name: "night sky",
+            BaseCooldown: 3,
+            CurrentCooldown: 3,
+            EffectValue: 0.5,
+            Trigger: "attack",
+            Type: "damage boost mult",
+        },
+    }
     return &special{
-        Name: "night sky",
-        BaseCooldown: 3,
-        CurrentCooldown: 3,
-        EffectValue: 0.5,
-        Trigger: "attack",
-        Type: "damage boost mult",
+        Name: specials[name].Name,
+        BaseCooldown: specials[name].BaseCooldown,
+        CurrentCooldown: specials[name].CurrentCooldown,
+        EffectValue: specials[name].EffectValue,
+        Trigger: specials[name].Trigger,
+        Type: specials[name].Type,
     }
 }
 
