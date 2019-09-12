@@ -1,8 +1,13 @@
 package heroes
 
+import (
+    "github.com/JaysonDeMarchi/goFeher/special"
+)
+
 type Unit struct {
     BaseHp, CurrentHp, Atk, Spd, Def, Res int
-    Name, WeaponColor, WeaponType, MovementType, Weapon, Assist, Special string
+    Name, WeaponColor, WeaponType, MovementType, Weapon, Assist string
+    Special special.Special
 }
 
 func (unit *Unit) SetCurrentHp(currentHp int) {

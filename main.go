@@ -3,6 +3,7 @@ package main
 import (
     "github.com/JaysonDeMarchi/goFeher/battle"
     "github.com/JaysonDeMarchi/goFeher/heroes"
+    "github.com/JaysonDeMarchi/goFeher/special"
 )
 
 func main() {
@@ -19,7 +20,7 @@ func main() {
         MovementType: "infantry",
         Weapon: "silver axe",
         Assist: "",
-        Special: "night sky",
+        Special: special.New("night sky"),
     }
 
     axeFighter := heroes.Unit{
@@ -35,7 +36,7 @@ func main() {
         MovementType: "infantry",
         Weapon: "brave axe",
         Assist: "",
-        Special: "",
+        Special: special.New(""),
     }
 
     blueManakete := heroes.Unit{
@@ -51,7 +52,7 @@ func main() {
         MovementType: "infantry",
         Weapon: "flametongue",
         Assist: "",
-        Special: "",
+        Special: special.New(""),
     }
 
     battle.Battle(&anna, &axeFighter, true);

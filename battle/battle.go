@@ -17,14 +17,23 @@ func calculateRemainingHp(battlePair Pair) int {
     return defender.CurrentHp - damage
 }
 
+func updateSpecialCooldowns(battlePair Pair) {
+    attacker, defender := battlePair.Attacker, battlePair.Defender
+    if attacker.Special.GetBaseCooldown() > 0 {
+        attacker.Special.SetCurrentCooldown(attacker.Special.GetCurrentCooldown() - 1)
+    }
+    if defender.Special.GetBaseCooldown() > 0 {
+        defender.Special.SetCurrentCooldown(defender.Special.GetCurrentCooldown() - 1)
+    }
+}
 
 func attack(battlePair Pair) {
     battlePair.Defender.SetCurrentHp(calculateRemainingHp(battlePair))
+    updateSpecialCooldowns(battlePair)
 }
 
 func buildBattleSequence(battlePair Pair) []Pair {
-    attacker := battlePair.Attacker
-    defender := battlePair.Defender
+    attacker, defender := battlePair.Attacker, battlePair.Defender
     battleSequence := []Pair {
         Pair{
             attacker,
@@ -55,11 +64,9 @@ func Battle(attacker *heroes.Unit, defender *heroes.Unit, showResults bool) {
         Defender: defender,
     }
     battleSequence := buildBattleSequence(battlePair)
-
     if showResults {
         printIntro()
     }
-
     for _, battlePair := range battleSequence {
         attack(battlePair)
         if showResults {
@@ -76,5 +83,6 @@ func Battle(attacker *heroes.Unit, defender *heroes.Unit, showResults bool) {
 }
 
 func calculateDamage(battlePair Pair) int {
-    return battlePair.Attacker.Atk - (battlePair.Defender.Bulk(battlePair.Attacker))
+    attacker, defender := battlePair.Attacker, battlePair.Defender
+    return attacker.Atk - (defender.Bulk(attacker))
 }
