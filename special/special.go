@@ -3,26 +3,20 @@ package special
 type special struct {
     BaseCooldown, CurrentCooldown int
     EffectValue float64
-    Name, Trigger, Type string
+    Name, TriggerType, Type string
 }
 
 func New(name string) Special {
+    if name == "" {
+        return &special{}
+    }
     specials := map[string]special {
-        "": special{
-            Name: "",
-            BaseCooldown: 0,
-            CurrentCooldown: 0,
-            EffectValue: 0,
-            Trigger: "",
-            Type: "",
-
-        },
         "night sky": special{
             Name: "night sky",
             BaseCooldown: 3,
             CurrentCooldown: 3,
             EffectValue: 0.5,
-            Trigger: "attack",
+            TriggerType: "attack",
             Type: "damage boost mult",
         },
     }
@@ -31,9 +25,15 @@ func New(name string) Special {
         BaseCooldown: specials[name].BaseCooldown,
         CurrentCooldown: specials[name].CurrentCooldown,
         EffectValue: specials[name].EffectValue,
-        Trigger: specials[name].Trigger,
+        TriggerType: specials[name].TriggerType,
         Type: specials[name].Type,
     }
+}
+func (s *special) Trigger(base int) int {
+    if s.Type == "damage boost mult" {
+        return int(float64(base) * s.EffectValue)
+    }
+    return base
 }
 
 func (s *special) GetBaseCooldown() int {
@@ -56,8 +56,8 @@ func (s *special) GetName() string {
     return s.Name
 }
 
-func (s *special) GetTrigger() string {
-    return s.Trigger
+func (s *special) GetTriggerType() string {
+    return s.TriggerType
 }
 
 func (s *special) GetType() string {

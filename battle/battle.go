@@ -19,10 +19,14 @@ func calculateRemainingHp(battlePair Pair) int {
 
 func updateSpecialCooldowns(battlePair Pair) {
     attacker, defender := battlePair.Attacker, battlePair.Defender
-    if attacker.Special.GetBaseCooldown() > 0 {
-        attacker.Special.SetCurrentCooldown(attacker.Special.GetCurrentCooldown() - 1)
+    if attacker.Special.GetTriggerType() == "attack" {
+        if attacker.Special.GetCurrentCooldown() == 0 {
+            attacker.Special.SetCurrentCooldown(attacker.Special.GetBaseCooldown())
+        } else {
+            attacker.Special.SetCurrentCooldown(attacker.Special.GetCurrentCooldown() - 1)
+        }
     }
-    if defender.Special.GetBaseCooldown() > 0 {
+    if defender.Special.GetTriggerType() == "attack" {
         defender.Special.SetCurrentCooldown(defender.Special.GetCurrentCooldown() - 1)
     }
 }
@@ -84,5 +88,9 @@ func Battle(attacker *heroes.Unit, defender *heroes.Unit, showResults bool) {
 
 func calculateDamage(battlePair Pair) int {
     attacker, defender := battlePair.Attacker, battlePair.Defender
-    return attacker.Atk - (defender.Bulk(attacker))
+    trueDamage := attacker.Atk
+    if attacker.Special.GetTriggerType() == "attack" && attacker.Special.GetCurrentCooldown() == 0 {
+        trueDamage = attacker.Special.Trigger(attacker.Atk)
+    }
+    return trueDamage - (defender.Bulk(attacker))
 }
