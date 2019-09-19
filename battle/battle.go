@@ -4,6 +4,8 @@ import (
     "github.com/JaysonDeMarchi/goFeher/heroes"
 )
 
+const loggerIsActive bool = true
+
 type Pair struct {
     Attacker, Defender *heroes.Unit
 }
@@ -62,18 +64,18 @@ func buildBattleSequence(battlePair Pair) []Pair {
     return battleSequence
 }
 
-func Battle(attacker *heroes.Unit, defender *heroes.Unit, showResults bool) {
+func Battle(attacker *heroes.Unit, defender *heroes.Unit) {
     battlePair := Pair{
         Attacker: attacker,
         Defender: defender,
     }
     battleSequence := buildBattleSequence(battlePair)
-    if showResults {
+    if loggerIsActive {
         printIntro()
     }
     for _, battlePair := range battleSequence {
         attack(battlePair)
-        if showResults {
+        if loggerIsActive {
             printSequence(battlePair)
         }
         if battlePair.Defender.CurrentHp == 0 {
@@ -81,7 +83,7 @@ func Battle(attacker *heroes.Unit, defender *heroes.Unit, showResults bool) {
         }
     }
 
-    if showResults {
+    if loggerIsActive {
         printResults(battleSequence)
     }
 }
