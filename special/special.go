@@ -1,39 +1,40 @@
 package special
 
+import (
+    "github.com/JaysonDeMarchi/goFeher/special/effect"
+)
+
 type special struct {
     BaseCooldown, CurrentCooldown int
-    EffectValue float64
     Name, TriggerType, Type string
+    Effect effect.Effect
 }
 
 func New(name string) Special {
     if name == "" {
-        return &special{}
+        return &special{
+            Effect: effect.New(""),
+        }
     }
     specials := map[string]special {
         "night sky": special{
             Name: "night sky",
             BaseCooldown: 3,
             CurrentCooldown: 3,
-            EffectValue: 0.5,
-            TriggerType: "attack",
-            Type: "damage boost mult",
+            Effect: effect.New("night sky"),
         },
     }
     return &special{
-        Name: specials[name].Name,
+        Name: name,
         BaseCooldown: specials[name].BaseCooldown,
         CurrentCooldown: specials[name].CurrentCooldown,
-        EffectValue: specials[name].EffectValue,
-        TriggerType: specials[name].TriggerType,
-        Type: specials[name].Type,
+        Effect: specials[name].Effect,
     }
 }
+
 func (s *special) Trigger(base int) int {
-    if s.Type == "damage boost mult" {
-        return int(float64(base) * s.EffectValue)
-    }
-    return base
+    s.SetCurrentCooldown(s.GetBaseCooldown())
+    return s.GetEffect().Proc(base)
 }
 
 func (s *special) GetBaseCooldown() int {
@@ -48,18 +49,10 @@ func (s *special) SetCurrentCooldown(currentCooldown int) {
     s.CurrentCooldown = currentCooldown
 }
 
-func (s *special) GetEffectValue() float64 {
-    return s.EffectValue
+func (s *special) GetEffect() effect.Effect {
+    return s.Effect
 }
 
 func (s *special) GetName() string {
     return s.Name
-}
-
-func (s *special) GetTriggerType() string {
-    return s.TriggerType
-}
-
-func (s *special) GetType() string {
-    return s.Type
 }

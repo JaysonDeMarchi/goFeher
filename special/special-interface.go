@@ -1,12 +1,14 @@
 package special
 
+import (
+    "github.com/JaysonDeMarchi/goFeher/special/effect"
+)
+
 type Special interface {
     Trigger(int) int
     GetBaseCooldown() int
     GetCurrentCooldown() int
     SetCurrentCooldown(int)
-    GetEffectValue() float64
+    GetEffect() effect.Effect
     GetName() string
-    GetTriggerType() string
-    GetType() string
 }
