@@ -1,13 +1,13 @@
 package battle
 
 import (
-    "github.com/JaysonDeMarchi/goFeher/heroes"
+    "github.com/JaysonDeMarchi/goFeher/unit"
 )
 
 const loggerIsActive bool = true
 
 type Pair struct {
-    Attacker, Defender *heroes.Unit
+    Attacker, Defender *unit.Unit
 }
 
 func calculateRemainingHp(battlePair Pair) int {
@@ -64,7 +64,7 @@ func buildBattleSequence(battlePair Pair) []Pair {
     return battleSequence
 }
 
-func Battle(attacker *heroes.Unit, defender *heroes.Unit) {
+func Battle(attacker *unit.Unit, defender *unit.Unit) {
     battlePair := Pair{
         Attacker: attacker,
         Defender: defender,

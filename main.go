@@ -2,12 +2,12 @@ package main
 
 import (
     "github.com/JaysonDeMarchi/goFeher/battle"
-    "github.com/JaysonDeMarchi/goFeher/heroes"
+    "github.com/JaysonDeMarchi/goFeher/unit"
     "github.com/JaysonDeMarchi/goFeher/special"
 )
 
 func main() {
-    anna := heroes.Unit{
+    anna := unit.Unit{
         BaseHp: 22,
         CurrentHp: 22,
         Atk: 22,
@@ -23,7 +23,7 @@ func main() {
         Special: special.New("night sky"),
     }
 
-    axeFighter := heroes.Unit{
+    axeFighter := unit.Unit{
         BaseHp: 22,
         CurrentHp: 22,
         Atk: 14,
@@ -39,7 +39,7 @@ func main() {
         Special: special.New(""),
     }
 
-    blueManakete := heroes.Unit{
+    blueManakete := unit.Unit{
         BaseHp: 22,
         CurrentHp: 22,
         Atk: 22,

@@ -2,7 +2,7 @@ package battle
 
 import (
     "fmt"
-    "github.com/JaysonDeMarchi/goFeher/heroes"
+    "github.com/JaysonDeMarchi/goFeher/unit"
 )
 
 func printIntro(){
@@ -10,8 +10,8 @@ func printIntro(){
 }
 
 func printResults(battleSequence []Pair) {
-    heroes.PrintStats(battleSequence[0].Attacker)
-    heroes.PrintStats(battleSequence[0].Defender)
+    unit.PrintStats(battleSequence[0].Attacker)
+    unit.PrintStats(battleSequence[0].Defender)
     fmt.Println("----------------------------------------\n")
 }
 

@@ -1,4 +1,4 @@
-package heroes
+package unit
 
 import (
     "github.com/JaysonDeMarchi/goFeher/special"
