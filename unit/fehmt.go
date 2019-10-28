@@ -4,24 +4,25 @@ import (
     "fmt"
 )
 
-func PrintStats(unit *Unit) {
+func PrintStats(unitPointer *Unit) {
+    unit := *unitPointer
     fmt.Printf("NAME: %s\n",
-        unit.Name)
+        unit.GetName())
     fmt.Printf("\tWEAPON TYPE: %s %s\n",
-        unit.WeaponColor,
-        unit.WeaponType)
+        unit.GetWeaponColor(),
+        unit.GetWeaponType())
     fmt.Printf("\tHP: %d / %d\t\tWEAPON: %s\n",
-        unit.CurrentHp,
-        unit.BaseHp,
-        unit.Weapon)
+        unit.GetCurrentHp(),
+        unit.GetBaseHp(),
+        unit.GetWeapon())
     fmt.Printf("\tATK: %d\tSPD: %d\t\tASSIST: %s\n",
-        unit.Atk,
-        unit.Spd,
-        unit.Assist)
+        unit.GetAtk(),
+        unit.GetSpd(),
+        unit.GetAssist())
     fmt.Printf("\tDEF: %d\tRES: %d\t\tSPECIAL: %s (%d / %d)\n",
-        unit.Def,
-        unit.Res,
-        unit.Special.GetName(),
-        unit.Special.GetCurrentCooldown(),
-        unit.Special.GetBaseCooldown())
+        unit.GetDef(),
+        unit.GetRes(),
+        unit.GetSpecial().GetName(),
+        unit.GetSpecial().GetCurrentCooldown(),
+        unit.GetSpecial().GetBaseCooldown())
 }

@@ -20,8 +20,8 @@ func printSequence(battlePair Pair) {
     defender := *battlePair.Defender
     fmt.Printf(
         "%s (%d) -> %s (%d)\n",
-        attacker.Name,
-        attacker.CurrentHp,
-        defender.Name,
-        defender.CurrentHp)
+        attacker.GetName(),
+        attacker.GetCurrentHp(),
+        defender.GetName(),
+        defender.GetCurrentHp())
 }
